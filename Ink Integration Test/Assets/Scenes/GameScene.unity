@@ -350,7 +350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textPrefab: {fileID: 1533027387548270544, guid: e3b8ffd5c53c3ef4a947f16b2d33b65c, type: 3}
-  welcomeText: Can I, help you?
+  welcomeText: Welcome to Lilymist Valley!
   turnOnVoiceOverText: Before beginning, turn on VoiceOver on your device and use
     the rotor to enable Direct Touch. If VoiceOver is turned on, you will be able
     to hear this text read aloud. It's also recommended that you wear headphones
