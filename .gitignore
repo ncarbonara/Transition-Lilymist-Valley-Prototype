@@ -58,3 +58,11 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+
+Ink Integration Test/Library/
+
+Ink Integration Test/Logs/
+
+Ink Integration Test/Packages/
+
+Ink Integration Test/UserSettings/
