@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc234ab28a32840f5adfb84a075bc023, type: 3}
+  m_Name: InkLibrary
+  m_EditorClassIdentifier: 
+  inkLibrary:
+  - compileAutomatically: 0
+    inkAsset: {fileID: 102900000, guid: c0b5b720a5949d244b8f46eb7fe72fdc, type: 3}
+    jsonAssetDirectory: {fileID: 0}
+    jsonAsset: {fileID: 4900000, guid: 736954c32d9f50c4abe0d0b42045e474, type: 3}
+  - compileAutomatically: 0
+    inkAsset: {fileID: 102900000, guid: f6ffeda1e3076dd43af5805a807882f2, type: 3}
+    jsonAssetDirectory: {fileID: 0}
+    jsonAsset: {fileID: 4900000, guid: 5dfded9f1530ac8418ab0a8b2cc52309, type: 3}
+  - compileAutomatically: 0
+    inkAsset: {fileID: 102900000, guid: e500b3cfb1ce8cf4092c73b527da7847, type: 3}
+    jsonAssetDirectory: {fileID: 0}
+    jsonAsset: {fileID: 4900000, guid: 79301b3c6fc61fc49bff14eddae3dae7, type: 3}
+  pendingCompilationStack: []
+  compilationStack: []
