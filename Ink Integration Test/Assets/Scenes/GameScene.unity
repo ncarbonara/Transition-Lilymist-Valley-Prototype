@@ -140,6 +140,7 @@ GameObject:
   - component: {fileID: 216311361}
   - component: {fileID: 216311362}
   - component: {fileID: 216311363}
+  - component: {fileID: 216311364}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -159,10 +160,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74bedefec9bf09e4c8b33d7a968e0d9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startKnot: Home06
+  startKnot: 
   totalChaptersImplemented: 1
-  inkJson: {fileID: 4900000, guid: 79301b3c6fc61fc49bff14eddae3dae7, type: 3}
+  inkJson: {fileID: 4900000, guid: 7752730c3a7ee9b4d946be1ba933a713, type: 3}
   textPrefab: {fileID: 1533027387548270544, guid: e3b8ffd5c53c3ef4a947f16b2d33b65c, type: 3}
+  selectableTextPrefab: {fileID: 8104388302115117720, guid: b6c3f9e96c80a614ab1b9d993efb9ade, type: 3}
   textInputFieldPrefab: {fileID: 5046983863885402268, guid: 643a501c798012c41b4aff6183809492, type: 3}
   ambiance: {fileID: 1490244088}
   soundEffects: {fileID: 1742092320}
@@ -207,7 +209,6 @@ MonoBehaviour:
     options.</i>
   returnToMenuButtonText: Return to Menu
   continueToNextChapterButtonText: Continue to Next Chapter
-  doubleTapDuration: 0.1
 --- !u!114 &216311356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -362,8 +363,8 @@ MonoBehaviour:
   pauseTooltipText: To pause the game at any time, swipe upward using three fingers.
   pleaseBeginText: To begin, tap the "Start Game" button. Enjoy your stay in Lilymist
     Valley!
-  buttonPrefab: {fileID: 6761957958263015889, guid: 91f5f5c2135c0a8409958f497595bfe9, type: 3}
-  pressToContinueText: Start Game
+  selectableTextPrefab: {fileID: 8104388302115117720, guid: b6c3f9e96c80a614ab1b9d993efb9ade, type: 3}
+  startGameButtonText: Start Game
 --- !u!114 &216311363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -377,7 +378,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textPrefab: {fileID: 1533027387548270544, guid: e3b8ffd5c53c3ef4a947f16b2d33b65c, type: 3}
-  buttonPrefab: {fileID: 6761957958263015889, guid: 91f5f5c2135c0a8409958f497595bfe9, type: 3}
+  selectableTextPrefab: {fileID: 8104388302115117720, guid: b6c3f9e96c80a614ab1b9d993efb9ade, type: 3}
   ambiance: {fileID: 1490244088}
   soundEffects: {fileID: 1742092320}
   pauseScreenText: <i>The game is paused. Drag your finger across the screen for
@@ -387,10 +388,24 @@ MonoBehaviour:
   areYouSureText: <i>Are you sure you'd like to erase your story progress and start
     over? You can't undo this action.</i>
   confirmClearDataButtonText: Yes, Erase my Story Progress
-  cancelClearDataButtonText: No, I Change my Mind
+  cancelClearDataButtonText: No, I Change My Mind
   progressHasBeenClearedText: <i>Your story progress has been erased. Press "Okay"
     to return to the Start Screen.</i>
-  returnToStartScreenButtonText: Okay
+  returnToMenuButtonText: Okay
+--- !u!114 &216311364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 216311354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcedf5a0ea4337f4597deb9b3418efc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doubleTapDuration: 0.5
+  choiceSelectedSound: {fileID: 1000551151}
 --- !u!1001 &217742291
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -542,6 +557,133 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1000551150
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1000551152}
+  - component: {fileID: 1000551151}
+  m_Layer: 0
+  m_Name: Choice Selected Sound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &1000551151
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000551150}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 228efacca0f36e446ae59b7e7d63130b, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &1000551152
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000551150}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1490244087
 GameObject:

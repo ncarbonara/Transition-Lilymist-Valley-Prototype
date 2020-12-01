@@ -15,8 +15,9 @@ public class VoiceOverNotificationTextManager : MonoBehaviour
     public string pauseTooltipText;
     public string pleaseBeginText;
 
-    public Button buttonPrefab;
-    public string pressToContinueText;
+    //public Button buttonPrefab;
+    public Text selectableTextPrefab;
+    public string startGameButtonText;
 
     // Start is called before the first frame update
     void Start()
@@ -40,21 +41,12 @@ public class VoiceOverNotificationTextManager : MonoBehaviour
         //Prints each of the different tooltip strings one after the other, with spaces between them.
         notificationText.text = "<i>" + welcomeText + "\n\n" + turnOnVoiceOverText + "\n\n" + feelButtonsBelowText + "\n\n" + pauseTooltipText + "\n\n" + pleaseBeginText + "</i>";
 
-        Button nextSceneButton = Instantiate(buttonPrefab) as Button;
-        nextSceneButton.gameObject.AddComponent(typeof(AccessibleButton));  //Adds an accessible button component to the button.
-        Text buttonText = nextSceneButton.GetComponentInChildren<Text>();
-        buttonText.text = pressToContinueText;  //Adds in desired text for what the "press to continue" button should say.
-        nextSceneButton.transform.SetParent(this.transform, false);
-
-        nextSceneButton.onClick.AddListener(delegate
-        {
-            //Calls a function in InkTextDisplay.cs (which should be attached to the same Canvas gameObject as this script) telling it to begin displaying story content.
-            this.GetComponent<InkTextDisplay>().BeginStory();
-
-            //Tells PauseManager.cs (which should be attached to the same Canvas gameObject as this script) to start checking to see if the player makes the "pause" gesture.
-            this.GetComponent<PauseManager>().enabled = true;
-        });
-
         UAP_AccessibilityManager.SelectElement(notificationText.gameObject);    //Directs focus to the notification text, so that it starts being read automatically.
+
+        //Creates a "start game" button
+        Text startGamePressableGameObject = Instantiate(selectableTextPrefab) as Text;  //Instantiates a "pressable text gameObject." (Our substitute for a button)
+        startGamePressableGameObject.gameObject.tag = "Start game button";
+        startGamePressableGameObject.text = startGameButtonText;
+        startGamePressableGameObject.transform.SetParent(this.transform, false);    //Parents the pressable gameObject to the canvas (this gameObject).
     }
 }

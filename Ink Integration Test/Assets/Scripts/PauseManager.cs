@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class PauseManager : MonoBehaviour
 {
     public Text textPrefab;
-    public Button buttonPrefab;
+    public Text selectableTextPrefab;   //A text box prefab specifically for selectable text. (Used in place of buttons, which are problematic with VoiceOver on iOS)
 
     public AudioSource ambiance;    //The audio source used to play looping background sound.
     public AudioSource soundEffects;    //The audio source used for momentary sound effects.
@@ -37,7 +37,7 @@ public class PauseManager : MonoBehaviour
     public string confirmClearDataButtonText;
     public string cancelClearDataButtonText;
     public string progressHasBeenClearedText;
-    public string returnToStartScreenButtonText;
+    public string returnToMenuButtonText;
 
     bool setToPause;    //Determines if the game is currently paused or not.
 
@@ -78,7 +78,7 @@ public class PauseManager : MonoBehaviour
     /// <summary>
     /// Opens or closes the pause screen.
     /// </summary>
-    void StartOrStopPause()
+    public void StartOrStopPause()
     {
         //If game is not currently paused, opens the pause screen.
         if(setToPause == false)
@@ -112,7 +112,7 @@ public class PauseManager : MonoBehaviour
     /// <summary>
     /// Opens the first screen the player sees after they pause.
     /// </summary>
-    void OpenMainPauseScreen()
+    public void OpenMainPauseScreen()
     {
         this.GetComponent<InkTextDisplay>().EraseUI();  //Tells InkTextDisplay.cs to clear all the onscreen text/buttons.
 
@@ -125,36 +125,26 @@ public class PauseManager : MonoBehaviour
         UAP_AccessibilityManager.SelectElement(pauseScreenTextGameObject.gameObject);   //Directs focus to the pause notification text, so that it starts being read automatically.
 
         //Creates an "unpause button," as an alternative to swiping up with three fingers again. (Both work for unpausing the game)
-        Button resumeButton = Instantiate(buttonPrefab) as Button;
-        resumeButton.gameObject.AddComponent(typeof(AccessibleButton)); //Adds an accessible button component to the button.
-        Text resumeButtonTextGameObject = resumeButton.GetComponentInChildren<Text>();
-        resumeButtonTextGameObject.text = resumeButtonText;  //Populates the button's text with the desired text for "press to continue."
-        resumeButton.transform.SetParent(this.transform, false);
-
-        resumeButton.onClick.AddListener(delegate
-        {
-            StartOrStopPause();
-        });
+        Text resumePressableGameObject = Instantiate(selectableTextPrefab) as Text;  //Instantiates a "pressable text gameObject." (Our substitute for a button)
+        resumePressableGameObject.gameObject.tag = "Resume button";
+        resumePressableGameObject.text = resumeButtonText;
+        resumePressableGameObject.transform.SetParent(this.transform, false);    //Parents the pressable gameObject to the canvas (this gameObject).
 
         //Creates a "clear progress" button
-        Button clearProgressButton = Instantiate(buttonPrefab) as Button;
-        clearProgressButton.gameObject.AddComponent(typeof(AccessibleButton)); //Adds an accessible button component to the button.
-        Text clearProgressButtonTextGameObject = clearProgressButton.GetComponentInChildren<Text>();
-        clearProgressButtonTextGameObject.text = clearProgressButtonText;  //Populates the button's text with the desired text.
-        clearProgressButton.transform.SetParent(this.transform, false);
-
-        clearProgressButton.onClick.AddListener(delegate
-        {
-            OpenAreYouSureScreen();
-        });
+        Text clearProgressPressableGameObject = Instantiate(selectableTextPrefab) as Text;  //Instantiates a "pressable text gameObject." (Our substitute for a button)
+        clearProgressPressableGameObject.gameObject.tag = "Are you sure you want to clear progress button";
+        clearProgressPressableGameObject.text = clearProgressButtonText;
+        clearProgressPressableGameObject.transform.SetParent(this.transform, false);    //Parents the pressable gameObject to the canvas (this gameObject).
     }
 
     /// <summary>
     /// Asks the player if they're sure they'd like to clear their progress, and gives them the option of doing so.
     /// </summary>
-    void OpenAreYouSureScreen()
+    public void OpenAreYouSureScreen()
     {
+
         this.GetComponent<InkTextDisplay>().EraseUI();  //Tells InkTextDisplay.cs to clear all the onscreen text/buttons.
+
 
         //Creates text asking the player if they really want to clear their progress or not.
         Text areYouSureTextGameObject = Instantiate(textPrefab) as Text;
@@ -164,35 +154,24 @@ public class PauseManager : MonoBehaviour
 
         UAP_AccessibilityManager.SelectElement(areYouSureTextGameObject.gameObject);   //Directs focus to the notification text, so that it starts being read automatically.
 
-        //Creates a "yes" button.
-        Button confirmClearDataButton = Instantiate(buttonPrefab) as Button;
-        confirmClearDataButton.gameObject.AddComponent(typeof(AccessibleButton)); //Adds an accessible button component to the button.
-        Text confirmClearDataButtonTextGameObject = confirmClearDataButton.GetComponentInChildren<Text>();
-        confirmClearDataButtonTextGameObject.text = confirmClearDataButtonText;  //Populates the button's text with the desired text.
-        confirmClearDataButton.transform.SetParent(this.transform, false);
-
-        confirmClearDataButton.onClick.AddListener(delegate
-        {
-            ClearPlayerData();
-        });
+        //Creates a "yes" button
+        Text confirmClearDataPressableGameObject = Instantiate(selectableTextPrefab) as Text;  //Instantiates a "pressable text gameObject." (Our substitute for a button)
+        confirmClearDataPressableGameObject.gameObject.tag = "Confirm clear progress button";
+        confirmClearDataPressableGameObject.text = confirmClearDataButtonText;
+        confirmClearDataPressableGameObject.transform.SetParent(this.transform, false);    //Parents the pressable gameObject to the canvas (this gameObject).
 
         //Creates an "I change my mind" button.
-        Button cancelClearDataButton = Instantiate(buttonPrefab) as Button;
-        cancelClearDataButton.gameObject.AddComponent(typeof(AccessibleButton)); //Adds an accessible button component to the button.
-        Text cancelClearDataButtonTextGameObject = cancelClearDataButton.GetComponentInChildren<Text>();
-        cancelClearDataButtonTextGameObject.text = cancelClearDataButtonText;  //Populates the button's text with the desired text.
-        cancelClearDataButton.transform.SetParent(this.transform, false);
+        Text cancelClearDataPressableGameObject = Instantiate(selectableTextPrefab) as Text;  //Instantiates a "pressable text gameObject." (Our substitute for a button)
+        cancelClearDataPressableGameObject.gameObject.tag = "Cancel clear progress button";
+        cancelClearDataPressableGameObject.text = cancelClearDataButtonText;
+        cancelClearDataPressableGameObject.transform.SetParent(this.transform, false);    //Parents the pressable gameObject to the canvas (this gameObject).
 
-        cancelClearDataButton.onClick.AddListener(delegate
-        {
-            OpenMainPauseScreen();
-        });
     }
 
     /// <summary>
     /// Clears the player's saved progress, and presents them with a notification telling them their progress has been cleared.
     /// </summary>
-    void ClearPlayerData()
+    public void ClearPlayerData()
     {
         PlayerPrefs.DeleteAll();
 
@@ -206,16 +185,12 @@ public class PauseManager : MonoBehaviour
 
         UAP_AccessibilityManager.SelectElement(progressHasBeenClearedTextGameObject.gameObject);   //Directs focus to the notification text, so that it starts being read automatically.
 
-        //Creates a "back to start screen" button.
-        Button returnToStartScreenButton = Instantiate(buttonPrefab) as Button;
-        returnToStartScreenButton.gameObject.AddComponent(typeof(AccessibleButton)); //Adds an accessible button component to the button.
-        Text returnToStartScreenButtonTextGameObject = returnToStartScreenButton.GetComponentInChildren<Text>();
-        returnToStartScreenButtonTextGameObject.text = returnToStartScreenButtonText;  //Populates the button's text with the desired text.
-        returnToStartScreenButton.transform.SetParent(this.transform, false);
+        //Creates a "return to menu" button.
+        Text returnToMenuPressableGameObject = Instantiate(selectableTextPrefab) as Text;  //Instantiates a "pressable text gameObject." (Our substitute for a button)
+        returnToMenuPressableGameObject.gameObject.tag = "Return to menu button";
+        returnToMenuPressableGameObject.text = returnToMenuButtonText;
+        returnToMenuPressableGameObject.transform.SetParent(this.transform, false);    //Parents the pressable gameObject to the canvas (this gameObject).he canvas (this gameObject).
 
-        returnToStartScreenButton.onClick.AddListener(delegate
-        {
-            this.GetComponent<VoiceOverNotificationTextManager>().OpenVoiceOverNotificationText();  //Opens what the player would see at the very start of the game.
-        });
+        this.GetComponent<PauseManager>().enabled = false;  //Ensures the player can't pause/unpause before starting a new gameplay session.
     }
 }

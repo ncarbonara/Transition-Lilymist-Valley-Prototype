@@ -1,7 +1,7 @@
 VAR player_name = "Sam"
 //Start
 
-ObjectiveEd presents...
+ObjectiveEd presents:
 <i>Lilymist Valley</i>
 
 #SFX: TrainWhistle
@@ -22,12 +22,12 @@ Hey! Mind if I sit here?
 +[Go ahead.]
     Thank you. I'll put my bags right up here.
     
-    Jeez. Could it be any harder to find a seat on this train? I leave my seat for one second...
+    Jeez. Could it be any harder to find a seat on this train? I leave my seat for one second.
     ->Train01
 +[I prefer to sit alone.]
     I promise I'll only be on the train for a bit longer.
     
-    Hard enough to find a place to sit on this train, you know. I leave my seat for one second...
+    Hard enough to find a place to sit on this train, you know. I leave my seat for one second.
     ->Train01
     
 === Train01 ===
@@ -44,11 +44,11 @@ Pah. I can't believe that guy.
    I was just getting a snack in the back cabin when more passengers were coming on. When I came back, some guy was sitting in my old seat!
 
 +[What did you do?]
-    Well... nothing. He just seemed kind of scary and I didn't want to deal with it, to be honest with you.
+    Well, nothing. He just seemed kind of scary and I didn't want to deal with it, to be honest with you.
     
-    Er... and he was sleeping...
+    Er, and he was sleeping. There's that too.
     
-    Not very heroic of me, I guess... thanks for letting me hang out with you, at least.
+    Not very heroic of me, I guess. Thanks for letting me hang out with you, at least.
 
     ++[No worries.]
         ->Train03
@@ -67,10 +67,10 @@ Pah. I can't believe that guy.
         ->Train03
 
 === Train03 ===
-My name's Ren, by the way. What's your name?
--> ChooseYourName
+My name's Ren, by the way.-> ChooseYourName
 
 === ChooseYourName ===
+What's your name?
 +[Sam]
     ~ player_name = "Sam"
     ->NameAreYouSure
@@ -90,7 +90,8 @@ My name's Ren, by the way. What's your name?
     ~ player_name = "Jordan"
     ->NameAreYouSure
 +[(Enter a new name.)]
-    #CreateCustomNameInputField
+<i>Tap the "Enter name here" to type in your name, then press "Continue."</i>
+    #Create Custom Name Input Field
     ++[(CONTINUE)]
         ->NameAreYouSure
         
@@ -108,23 +109,21 @@ Wow, I love that name. Nice to meet you.
     ->Train05
     
 === Train05 ===
-...
-
-Can I... ask you a weird question? I noticed the white cane next to you. You're blind... right? I'm sorry, I don't mean to make judgements. I'm just really impressed with how you're able to get on this train and go travel all by yourself. 
+Can I ask you a weird question? I noticed the white cane next to you. You're blind, right? I'm sorry, I don't mean to make judgements. I'm just really impressed with how you're able to get on this train and go travel all by yourself. 
 
 #SFX: TrainWhistle
 +[It's not so hard.]
     ->Train06
 +[It's tough, not going to lie.]
-    Oh... right. I'm sorry I asked.
+    Oh. Right. I'm sorry I asked.
     ->Train06
 +[Can we not talk about this?]
-    Oh... right. I'm sorry I asked.
+    Oh. Right. I'm sorry I asked.
     ->Train06
     
 === Train06 ===
 
-A close friend of my family is also blind. I'm always so curious. I'm happy to help you on the train... if you ever need it.
+A close friend of my family is also blind. I'm always so curious. I'm happy to help you out on the train if you ever need it.
 
 Like, seriously, if you need a sandwich or something at the snack cabin, I'm your gal! Just make sure nobody takes my seat, you know?
 
@@ -132,8 +131,6 @@ Like, seriously, if you need a sandwich or something at the snack cabin, I'm you
 -> Dog_Bark
 
 === Dog_Bark ===
-...
-
 <i>You hear a dog bark happily at some passengers behind you, it runs up the aisle towards the other end of the passenger cabin. You hear Ren take in a deep breath through her nose, her voice directed at the window as she speaks.</i>
 
 #SFX: DogBark
@@ -217,27 +214,27 @@ Lilymist Valley is the next stop. Do enjoy the journey.
 
 Hey, what? You're going to Lilymist Valley too! That's unbelievable!
 
-Wait. I don't recognize you at all. And I would recognize anyone our age in that town. Er... at least I'm assuming we're close to the same age...
+Wait. I don't recognize you at all. And I would recognize anyone our age in that town. Er, at least I'm assuming we're close to the same age.
 
 *[(CONTINUE)]
 
-Wait. Hang on... old man Scott mentioned he had family coming over this summer! And you two have strikingly similar facial features. Er... that's a compliment. He's not ugly or anything. He's the family friend I was talking about. 
+Wait. Hang on. old man Scott mentioned he had family coming over this summer! And you two have strikingly similar facial features. Er, that's a compliment. He's not ugly or anything. He's the family friend I was talking about. 
 
 He's your uncle, am I right? Tell me I'm right!
     
     **[You're right!]
         ->Train09
-    **[Uh, maybe...]
+    **[Uh, maybe.]
         ->Train09
 
 === Train09 ===    
     Wow! Yeah, you basically have the coolest Aunt and Uncle in town.
     
-    Oh man, this is so exciting! You're going to have my mom's cherry pie for sure. Well... after you get settled.
+    Oh man, this is so exciting! You're going to have my mom's cherry pie for sure. Well, after you get settled.
 
     You must be staying for the summer. Are you going to get a job in town?
         ***[Yup!]
-            Nice! I'm going back to a job, myself. Had to get a summer job. Well... to host at the River House Café. Family business and all.
+            Nice! I'm going back to a job, myself. Had to get a summer job. Well, to host at the River House Café. Family business and all.
             ->Train10
         ***[We'll see.]
             ->Train10
@@ -259,7 +256,9 @@ We definitely have to catch up in town some time.
 
 Can I help you with your bags?
 **[That would be great, thank you.]
-    I've got you. Rrngh...
+    I've got you.
+    
+    <i>You hear Ren huff as she grabs your bags.</i>
         ->Train11
 **[All I have is my backpack.]
     Wow, you really know how to travel.
@@ -287,7 +286,7 @@ Of course. Come on!
     ~ renTrain = true
         ->Train12
 *[Okay. See ya.]
-Okay. Uh... bye.
+Okay. Uh, bye.
 
 <i>You collect your things and carefully navigate towards the train's door.</i>
         ->Train12
@@ -304,7 +303,7 @@ Lilymist Valley. Please watch your step when exiting the train.
 { renTrain == true: 
 <i>You hear Ren's voice again.</i>
 
-Here it is. You're gonna step down right... here!
+Here it is. You're gonna step down right. About. Here!
 }
 
 #SFX: DoorTrainOpen
@@ -379,7 +378,7 @@ To the right over there is our tiny little farm. There's a small barn there wher
 
 === Drive04 ===
 
-Well... here we are! Let me get your bags, dear.
+Well, here we are! Let me get your bags, dear.
 
 I'm sure your Uncle Scott will be out here any minute.
 
@@ -587,7 +586,7 @@ Oh. Want the door closed? The dog might come visit you if it's open.
 #SFX: DoorCloseCreak
 }
 
-*[(CONTINUE)]
+*[(SLEEP)]
 ->Home12
 
 === Home12 ===
@@ -688,10 +687,10 @@ Well, I know you're busy and Scott's going to work soon, so I just wanted to see
 #SFX: DoorOpenCreak
 
 **[Hi Ren!]
-    Hey {player_name}! Good to see you, um... NOT on the train. Seems like you've settled in nicely. 
+    Hey {player_name}! Good to see you, um, not on the train. Seems like you've settled in nicely. 
     ->Home18
 **[Not interested.]
-    Hey {player_name}! Good to see you, um... NOT on the train. Seems like you've settled in nicely.
+    Hey {player_name}! Good to see you, um, not on the train. Seems like you've settled in nicely.
     ->Home18
 **[(Say nothing and remain hidden in the kitchen).]
     ->Home18
@@ -708,16 +707,16 @@ Oooh! I can totally help out with that. I am the master of job hunting!
 <i>You can hear Ren walking into the kitchen, completely giving you her attention.</i>
 
 **[(CONTINUE)]
-There's so much you can do to get any kind of job. Most people don't even realize it. You don't just apply and show up for an interview. There's so much to it! I mean... that's what my mom's told me, at least...
+There's so much you can do to get any kind of job. Most people don't even realize it. You don't just apply and show up for an interview. There's so much to it! I mean, that's what my mom's told me, at least.
     ->Home19
 
 === Home19 ===
 +[Sure, let's go!]
     ->Home20
 +[Like what?]
-    Well, first of all, it's always good to show up in person at some point, instead of just applying online and forgetting about it. Puts a face to the name, ya know? Then, there are all the little tricks you can do in the interview, like dressing nicely, shaking hands... all that stuff.
+    Well, first of all, it's always good to show up in person at some point, instead of just applying online and forgetting about it. Puts a face to the name, ya know? Then, there are all the little tricks you can do in the interview, like dressing nicely, shaking hands. All that stuff.
     ->Home19
-+[I don't know...]
++[I don't know.]
     Come on. I know you can do it.
     ->Home20
     
@@ -752,7 +751,7 @@ It won't be too long. Once we get closer to the heart of town, the sidewalk will
 <i>You notice that sure enough, after walking down a bit of inclined path for a few minutes, the concrete beneath you becomes reliably flat.</i>
 
 *[(CONTINUE)]
-I had this idea... I'm trying to think of places that are hiring. I think the Lilymist Hotel would be a good bet. I saw a flier at the diner that said they were hiring pool receptionists. No experience needed! Crazy. 
+I had this idea. I'm trying to think of places that are hiring. I think the Lilymist Hotel would be a good bet. I saw a flier at the diner that said they were hiring pool receptionists. No experience needed! Crazy. 
 
 Lilymist Hotel is a big deal here. Lots of rooms, with a view of Lilymist Falls. It's on the other side of town. We'll check that out, at least. Let me think of a few other places.
 
@@ -760,7 +759,7 @@ Lilymist Hotel is a big deal here. Lots of rooms, with a view of Lilymist Falls.
 ->Enroute01
 
 === Enroute01 ===
-In the meantime, there is a lot around here. We're on the main road to town now. Well, one of them, at least... 
+In the meantime, there is a lot around here. We're on the main road to town now. Well, one of them, at least. 
 
 To our right is just a steep mountainous hill. The town is kind of ahead of us, and on the left. But the hill subsides a little bit ahead, and we'll see the library pretty soon. 
 
@@ -774,7 +773,7 @@ To our right is just a steep mountainous hill. The town is kind of ahead of us, 
 
 Here's the library, on your right. Lots of good things here, not just books.
 
-Oh! What is this? Speaking of job hunting...
+Oh! What is this? Speaking of job hunting.
 
 <i>Ren pauses for a moment.</i>
 
@@ -917,20 +916,20 @@ You're from out of town then, huh? Exciting! I'm looking forward to your job pro
 #SFX: TypingShort
 
     ++[(CONTINUE)]
-    Okay, we're about halfway done. Here come the more personalized parts. First... work skills. We have two types of skills to put here: Soft skills, and hard skills.
+    Okay, we're about halfway done. Here come the more personalized parts. First, work skills. We have two types of skills to put here: Soft skills, and hard skills.
     
         +++[(CONTINUE)]
         ->Resume07
         
 === Resume07 ===
-Hard skills are what most people think of when they think of "skills." Things like cooking experience, computer program proficiencies, fluent Spanish... Those are all hard skills.
+Hard skills are what most people think of when they think of "skills." Things like cooking experience, computer program proficiencies, fluent Spanish. Those are all hard skills.
 
 Soft skills are more people-related things, like "personable communicator," "problem solver," "critical thinker," and "quick learner." Those are all soft skills.
 
 +[(CONTINUE)]
 
     So, I've given you some suggestions, but can you think of some good hard and soft skills to include?
-    ++[Let me think...]
+    ++[Let me think.]
         ->Resume08
     ++[Could you go over hard and soft skills again?]
         ->Resume07
@@ -944,7 +943,7 @@ Soft skills are more people-related things, like "personable communicator," "pro
 Great work so far! We're almost done. The last part of the resume is the "Interests" section. In this part, you'll tell the employer what makes you unique as a person, not just a worker. It makes you less of an application, and more of an individual.
     
     ++[(CONTINUE)]
-        One tip... A lot of people will put basic things like "art," or "sports," or "music,” but you should be more specific. Showing personality stands out. So, instead of putting music, you might say what?
+        One tip. A lot of people will put basic things like "art," or "sports," or "music,” but you should be more specific. Showing personality stands out. So, instead of putting music, you might say what?
         
         +++[Hip-Hop.]
             Hip-Hop, yeah!->Resume09
@@ -987,7 +986,7 @@ There you are. And here's a nice folder to put them in. Now go out there and put
     ++[(CONTINUE)]
     ->Resume12
 +[What do I do with it?]    
-    You can do all kinds of things with it now. You can submit it with the online application, you can give it to the manager after applying... heck, you can even give it to the manager before applying! At the very least, it's good to bring it to your interview. Gives them something to look over and helps them ask less generic questions.
+    You can do all kinds of things with it now. You can submit it with the online application, you can give it to the manager after applying. Heck, you can even give it to the manager before applying! At the very least, it's good to bring it to your interview. Gives them something to look over and helps them ask less generic questions.
     ->Resume11
 +[See ya.]
     See you around. Good luck!
@@ -1015,7 +1014,7 @@ Hey, it's no problem. I'm just happy to help. Lots of cute ducks out here, anywa
 ->Resume14
 
 === Resume14 ===
-You're lucky you got the help. I had to do mine all by myself! My first one... was so, so bad. This one is very good though.
+You're lucky you got the help. I had to do mine all by myself! My first one. Was so, so bad. This one is very good though.
 
 +[(CONTINUE)]
 ->Enroute05
@@ -1057,14 +1056,14 @@ Nice to meet you, {player_name}! Hip. I was just cruising through town. Good to 
 ***[(CONTINUE)]
 <i>Kai accepts the invitation:</i>
 
-Sweet. Yeah, I'll come along. I don't wanna take away from your time with Ren, {player_name}... so just let me know if you ever want me to bail.
+Sweet. Yeah, I'll come along. I don't wanna take away from your time with Ren, {player_name}, so just let me know if you ever want me to bail.
 ****[Not a problem at all.]
     Well, then count me in!
     ->Enroute07
 ****[Do whatever you want.]
     Well, then count me in!
     ->Enroute07
-****[You can stay... for now.]
+****[You can stay. For now.]
     Alright. I can respect that.
     ->Enroute07
     
@@ -1133,11 +1132,11 @@ Well, the most in-demand job we have for anyone without experience would be the 
 
 <i>Ren responds happily:</i>
 
-Yes... please and thank you!
+Yes, please and thank you!
 
 <i>The concierge writes something down on a note, and hands it to Ren.</i>
 
-Have a... fine day, young lady.
+Have a fine day, young lady.
 
 **[(CONTINUE)]
 ->HotelVisit03
@@ -1145,7 +1144,7 @@ Have a... fine day, young lady.
 === HotelVisit03 ===
 <i>Kai is astonished:</i>
 
-Uh... Ren? What the...?
+Uh, Ren? What the?
 
 <i>Ren comes back, confidently:</i>
 
@@ -1155,7 +1154,7 @@ That's how it's done! Here you go, {player_name}! You can apply online and call 
 
 *[You knew exactly what to say.]
     ->HotelVisit04
-*[Uh... thank you?]
+*[Uh, thank you?]
     ->HotelVisit04
 *[There's no way that works every time.]
     ->HotelVisit04
@@ -1170,7 +1169,7 @@ Anyways, we've got the information we need. Ready to go?
     **[Let's go]
             ->Enroute09
     **[Could we visit the pool area on the way out?]
-        Uh... sure!
+        Uh, sure!
         
         <i>You visit the hotel pool area outside with Ren and Kai. You can hear splashing here and there, along with some sounds of children playing, but nothing too chaotic. After observing the atmosphere for a bit, you decide you have all the information you need.</i>
         
@@ -1178,13 +1177,13 @@ Anyways, we've got the information we need. Ready to go?
         ***[(CONTINUE)]
             ->Enroute09
     **[Wait. (Approach the concierge).]
-        Oh... you're doing it!
+        Oh, you're doing it!
         ->HotelVisit05
         
 === HotelVisit05 ===
 <i>You approach the concierge, in the same way Ren did. He notices you, and asks:</i>
 
-Can I... help you?
+Can I. Help you?
 ->HotelVisit06
 
 === HotelVisit06 ===
@@ -1196,7 +1195,7 @@ Can I... help you?
         **[(CONTINUE)]
             ->Enroute09
 *[Are you guys hiring right now?]
-    Erm... yes. As I've just told your friend, we're hiring receptionists for our pool area. You're welcome to apply online as well. Anything else I can do for you right now?
+    Erm, yes. As I've just told your friend, we're hiring receptionists for our pool area. You're welcome to apply online as well. Anything else I can do for you right now?
         ->HotelVisit06
 *[I'd like to speak to the hiring manager right now, if possible.]
     I'm afraid he's quite indisposed right now. Do apply online, it's very simple. He'll most certainly call you back if you're the right fit. I believe your friend has the number to call and follow-up just in case. Is there anything else you need?
@@ -1235,7 +1234,7 @@ VAR impoliteNursery = false
 VAR resumeNursery = false
 VAR resumeBakery = false
 
-{player_name}... Are you thinking what I'm thinking? You could go in and ask... the "are you hiring" question!
+{player_name}, are you thinking what I'm thinking? You could go in and ask. You could ask the "are you hiring" question!
 
 *[I'll just apply online.]
     Okay, let's keep going.
@@ -1294,7 +1293,7 @@ Um, okay. Take care.
         ->NurseryVisit02
 
 === NurseryVisit01b ===
-Uh... yes. I think? Feel free to apply online, then somebody will take a look and give you a call if your availability is good.
+Uh, yes. I think? Feel free to apply online, then somebody will take a look and give you a call if your availability is good.
     ->NurseryVisit01d
 
 === NurseryVisit01c ===
@@ -1370,7 +1369,7 @@ That's exactly where I was thinking of ending the tour. Let's get a bite to eat!
         ->Enroute12
     
 === Enroute12 ===
-    We're in Old Town now... some people just call it Downtown. Not really any skyscrapers or anything, but it's a fun place to hang out. The theatre is just over there, with some cool shops and restaurants. But we're going to the Crumble Café for a snack... right here!
+    We're in Old Town now. Some people just call it Downtown. Not really any skyscrapers or anything, but it's a fun place to hang out. The theatre is just over there, with some cool shops and restaurants. But we're going to the Crumble Café for a snack. Right here!
 
 #Ambiance: TrafficLight
 
@@ -1418,7 +1417,7 @@ Mmm-mmm! So many things to choose from.
     <i>You hear Kai get up and leave through the front door, whose cute little bell rings again. You and Ren continue talking while listening to the sounds and conversations of the coffee shop. Soon, Ren starts muttering to herself while stirring her spoon around the edges of her coffee cup.</i>
     
     **[(CONTINUE)]
-        So far, we've got the hotel... the nursery... hmmm... what else can we add to your job hunting list? There's gotta be at least one more place.
+        So far, we've got the hotel, the nursery, hmmm. What else can we add to your job hunting list? There's gotta be at least one more place.
         
         <i>She continues stirring her spoon thoughtfully.</i>
         ***[(CONTINUE)]
@@ -1431,7 +1430,7 @@ What is it, Kai? You look astonished!
 
 <i>Kai responds:</i>
 
-Um... well you know that guy, Carl?
+Um, well you know that guy, Carl?
 
 #SFX: TinyBell
 
@@ -1440,7 +1439,7 @@ Um... well you know that guy, Carl?
     
     <i>Kai responds affirmatively:</i>
     
-    Yup. So, his mom is letting him have a summer party at his house with a ton of people. And they wanted a DJ...
+    Yup. So, his mom is letting him have a summer party at his house with a ton of people. And they wanted a DJ.
     
     <i>Ren hangs on the edge of her seat excitedly:</i>
     
@@ -1458,12 +1457,12 @@ Um... well you know that guy, Carl?
             
             I know. It'll be my first paid gig as a DJ ever! I'm pumped. Wow. I have to plan everything out to make it perfect.
     
-            {player_name}, I hope you're planning on coming. This will be a totally great time! Charlie's house is on the river, and his parents have a little dock to party on.
+            {player_name}, I hope you're planning on coming. This will be a totally great time! Carl's house is on the river, and his parents have a little dock to party on.
             
             ****[I wanna go!]
                 Yeah! I'll make sure you're going. You can hang out with me at the turntables if you don't want to meet tons of people there.
                 ->BakeryVisit04
-            ****[I don't know...]
+            ****[I don't know.]
                 You'll have a few weeks to decide. You're my plus one if you want it! You can hang out with me at the turntables if you don't want to meet tons of people there.
                 ->BakeryVisit04
     
@@ -1476,9 +1475,9 @@ What about here? {player_name}, you could work at the Crumble Café! You could w
 
 *[That's an idea.]
     ->BakeryVisit05
-*[Hmm... I'll think about it.]
+*[Hmm, I'll think about it.]
     ->BakeryVisit05
-*[Eh...]
+*[Eh.]
     ->BakeryVisit05
 
 === BakeryVisit05 ===
@@ -1491,7 +1490,7 @@ We can ask them, if you'd like?
         **[(CONTINUE)]
             ->Enroute13
 *[Could you do it?]
-    Hey, it's not my job hunt! Well, I do like helping you so much so... ugh, I guess. Just because I like you.
+    Hey, it's not my job hunt! Well, I do like helping you so much. Ugh, I guess. Just because I like you.
     
     **[(CONTINUE)]   
         <i>Ren gets up and asks the girl at the counter if they are hiring. She asks the old man, and he responds with some details about filling in an application on the internet. Ren thanks them and returns to you.</i>
@@ -1534,7 +1533,7 @@ We can ask them, if you'd like?
     ->BakeryVisit07
 
 === BakeryVisit07 ===
-Uh... let me have you talk to the owner.
+Uh. Let me have you talk to the owner.
 
 <i>The barista shouts across the counter to your left.</i>
     
@@ -1726,6 +1725,10 @@ Have a goodnight.
 === BackHome01 ===
 Well! There you are. You've made it home, just in time for dinner. Your Uncle should be home any minute now.
 
+{ hasSoil == true:
+Is that a bag of soil? How thoughtful. You can just stick it by the door there.
+}
+
 Did you have a good time with Ren, dear? I'm looking forward to hearing all about your walk around town today.
 
 *[(CONTINUE)]
@@ -1751,7 +1754,7 @@ Well, had a big day, then? Did you find any places you wanted to apply to?
     ->BackHome02a
 **[Yeah, all of them!]
     ->BackHome02a
-**[Eh...]
+**[Eh.]
     ->BackHome02b
 
 
@@ -1762,7 +1765,7 @@ Hah! Eager as I remember.
 === BackHome02b ===
 I'm sure you'll find at least one that interests you. You work hard at any of 'em, you'll have a good time.
 
-But now my question is... are you prepared to start working?
+But now my question is: are you prepared to start working?
 
 *[What do you mean?]
     ->BackHome03
@@ -1786,7 +1789,7 @@ We have to work extra hard to prove ourselves in this world, but if you're good 
     ->BackHome04
 
 === BackHome04 ===
-All right, well... let's change the subject, I'm sure you want a break from it. I know you'll decide what's best for you.
+All right, well. Let's change the subject, I'm sure you want a break from it. I know you'll decide what's best for you.
 
 *[(CONTINUE)]
     <i>After dinner, you and your uncle play one of his favorite board games together, while your Aunt Tilly watches her favorite knitting show. </i>
@@ -1797,9 +1800,14 @@ All right, well... let's change the subject, I'm sure you want a break from it. 
 
 **[(Complete Chapter 1)]
     ->Complete_Chapter_1
+// sound effect?
 
 === Complete_Chapter_1 ===
-#CHAPTER COMPLETE
+#CHAPTER COMPLETE: 1
+    ->DONE
+    
+=== Chapter_2_Start ===
+Chapter 2 begins!
     ->END
 
 // To Chapter 2

@@ -16,6 +16,7 @@ public class InkTextDisplay : MonoBehaviour
     public string startKnot;
 
     public int totalChaptersImplemented;    //The total number of chapters *currently* implemented in the game. Update as needed.
+    int chapterNumber;  //When the player finishes a chapter, this number is used to track the number of the chapter they just finished.
 
     public TextAsset inkJson;   //The JSON file associated with the Ink story file. It's compiled automatically everytime the Ink file is edited.
     private Story story;    //Variable containing info about the story.
@@ -24,7 +25,7 @@ public class InkTextDisplay : MonoBehaviour
     string mostRecentAmbiance;   //The most recent set of background noises that the player has encountered. Recorded for saving purposes.
 
     public Text textPrefab; //A generic text box prefab.
-    //public Button buttonPrefab; //A generic button prefab.
+    public Text selectableTextPrefab;   //A text box prefab specifically for selectable text. (Used in place of buttons, which are problematic with VoiceOver on iOS)
     public InputField textInputFieldPrefab;   //A generic text input field. Used for when the player types in their name.
 
     public AudioSource ambiance;    //The audio source used to play looping background sound.
@@ -78,51 +79,8 @@ public class InkTextDisplay : MonoBehaviour
     public string chapterEndScreenToolTipText;
     public string returnToMenuButtonText;
     public string continueToNextChapterButtonText;
-
-    bool firstTapEnded;
-    public float doubleTapDuration;
-    float doubleTapTimer;
-
-    void Start()
-    {
-        doubleTapTimer = 0f;
-    }
-
-    void Update()
-    {
-        if(Input.touchCount > 0)
-        {
-            Touch touch = Input.GetTouch(0);
-
-            if(doubleTapTimer > 0 && firstTapEnded == true)
-            {
-                Debug.Log("Double tap!");
-                firstTapEnded = false;
-                OnDoubleTap();
-            }
-            else
-            {
-                doubleTapTimer = doubleTapDuration;
-            }
-
-            if(touch.phase == TouchPhase.Ended)
-            {
-                firstTapEnded = true;
-            }
-
-        } else if(Input.touchCount == 0 && doubleTapTimer >= 0)
-        {
-            doubleTapTimer -= Time.deltaTime;
-
-            if(doubleTapTimer <= 0f)
-            {
-                firstTapEnded = false;
-                doubleTapTimer = 0f;
-            }
-        }
-    }
     
-    void OnDoubleTap()
+    public void SelectDialogueChoice()
     {
         int selectedChoiceIndex;
 
@@ -221,12 +179,11 @@ public class InkTextDisplay : MonoBehaviour
             } else if(tag.Contains("CHAPTER COMPLETE: "))   //Checks to see if the player has reached the end of a chapter.
             {
                 //Identifies which chapter they've just completed, based on the name of the tag
-                //NOTE: Maybe we could just save it as an int in this script, istead?
                 string[] stringTagArray = tag.Split(' ');
-                int chapterNumber = Int32.Parse(stringTagArray[2]);
+                chapterNumber = Int32.Parse(stringTagArray[2]);
                 Debug.Log("Number of finished chapter: " + chapterNumber);
 
-                OpenChapterCompleteScreen(chapterNumber);   //Opens the "chapter complete" screen
+                OpenChapterCompleteScreen();   //Opens the "chapter complete" screen
             }
         }
 
@@ -243,23 +200,10 @@ public class InkTextDisplay : MonoBehaviour
         //Presents the next batch of dialogue choices to the player
         foreach(Choice choice in story.currentChoices)
         {
-            /*
-            Button choiceButton = Instantiate(buttonPrefab) as Button;  //Instantiates a button gameObject.
-            choiceButton.gameObject.AddComponent(typeof(AccessibleButton));
-            Text choiceText = choiceButton.GetComponentInChildren<Text>();
-            choiceText.text = choice.text;  //Populates the button's text with the appropriate choice text.
-            choiceButton.transform.SetParent(this.transform, false);    //Parents the button gameObject to the canvas (this gameObject).
-
-            choiceButton.onClick.AddListener(delegate
-            {
-                chooseStoryChoice(choice);  //Tells the button to trigger this particular dialogue choice when it is pressed.
-            });
-            */
-
-            Text choiceText = Instantiate(textPrefab) as Text;  //Instantiates a button gameObject.
+            Text choiceText = Instantiate(selectableTextPrefab) as Text;  //Instantiates a selectable text gameObject. (Our substitute for a button)
+            choiceText.gameObject.tag = "Dialogue choice";
             choiceText.text = choice.text;
             choiceText.gameObject.name = choice.index.ToString();   //Names the text gameObject after the choice index it represents.
-            AccessibleLabel choiceLabel = choiceText.gameObject.AddComponent(typeof(AccessibleLabel)) as AccessibleLabel;
             choiceText.transform.SetParent(this.transform, false);    //Parents the button gameObject to the canvas (this gameObject).
         }
     }
@@ -273,16 +217,6 @@ public class InkTextDisplay : MonoBehaviour
         {
             Destroy(this.transform.GetChild(i).gameObject);
         }
-    }
-
-    /// <summary>
-    /// Called whenever the player makes a dialogue choice.
-    /// </summary>
-    /// <param name="choice"></param>
-    void chooseStoryChoice(Choice choice)
-    {
-        story.ChooseChoiceIndex(choice.index);  //Tells the game which choice the player made, and makes the game respond accordingly.
-        RefreshUI(false);    //Clears the screen to populate it with the next text/choices.
     }
 
     /// <summary>
@@ -661,10 +595,8 @@ public class InkTextDisplay : MonoBehaviour
     /// <summary>
     /// Opens the "chapter complete screen," which congratulates the player for completing a chapter and provides them with new options.
     /// </summary>
-    /// <param name="chapNum"></param>
-    void OpenChapterCompleteScreen(int chapNum)
+    void OpenChapterCompleteScreen()
     {
-        /*
         SaveProgress();
 
         //Ends all sounds.
@@ -679,41 +611,36 @@ public class InkTextDisplay : MonoBehaviour
 
         //Informs the player that they've completed a chapter.
         Text chapterCompleteTextGameObject = Instantiate(textPrefab) as Text;
-        chapterCompleteTextGameObject.text = "Congratulations, you completed Chapter " + chapNum + "! " + chapterEndScreenToolTipText;
+        chapterCompleteTextGameObject.text = "Congratulations, you completed Chapter " + chapterNumber + "! " + chapterEndScreenToolTipText;
         AccessibleLabel label = chapterCompleteTextGameObject.gameObject.AddComponent(typeof(AccessibleLabel)) as AccessibleLabel;  //Adds an accessible label to the text.
         chapterCompleteTextGameObject.transform.SetParent(this.transform, false);
 
         UAP_AccessibilityManager.SelectElement(chapterCompleteTextGameObject.gameObject);   //Directs focus to the chapter complete notification text, so that it starts being read automatically.
 
         //Creates a "return to menu" button.
-        Button returnToMenuButton = Instantiate(buttonPrefab) as Button;
-        returnToMenuButton.gameObject.AddComponent(typeof(AccessibleButton)); //Adds an accessible button component to the button.
-        Text returnToMenuButtonTextGameObject = returnToMenuButton.GetComponentInChildren<Text>();
-        returnToMenuButtonTextGameObject.text = returnToMenuButtonText;  //Populates the button's text with the desired text for "return to menu."
-        returnToMenuButton.transform.SetParent(this.transform, false);
+        Text returnToMenuPressableGameObject = Instantiate(selectableTextPrefab) as Text;  //Instantiates a "pressable text gameObject." (Our substitute for a button)
+        returnToMenuPressableGameObject.gameObject.tag = "Return to menu button";
+        returnToMenuPressableGameObject.text = returnToMenuButtonText;
+        returnToMenuPressableGameObject.transform.SetParent(this.transform, false);    //Parents the pressable gameObject to the canvas (this gameObject).
 
-        returnToMenuButton.onClick.AddListener(delegate
+        chapterNumber++;  //This is now the number of the next chapter.
+        if(chapterNumber <= totalChaptersImplemented)  //Checks to see if the next chapter has been implemented yet. If so, creates a button to take the player to the next chapter.
         {
-            this.GetComponent<VoiceOverNotificationTextManager>().OpenVoiceOverNotificationText();
-        });
-
-        chapNum++;  //This is now the number of the next chapter.
-        if(chapNum <= totalChaptersImplemented)  //Checks to see if the next chapter has been implemented yet. If so, creates a button to take the player to the next chapter.
-        {
-            //Creates a "continue to next chapter" button
-            Button continueToNextChapterButton = Instantiate(buttonPrefab) as Button;
-            continueToNextChapterButton.gameObject.AddComponent(typeof(AccessibleButton)); //Adds an accessible button component to the button.
-            Text continueToNextChapterButtonTextGameObject = continueToNextChapterButton.GetComponentInChildren<Text>();
-            continueToNextChapterButtonTextGameObject.text = continueToNextChapterButtonText;  //Populates the button's text with the desired text for "continue to next chapter."
-            continueToNextChapterButton.transform.SetParent(this.transform, false);
-
-            continueToNextChapterButton.onClick.AddListener(delegate
-            {
-                startKnot = "Chapter_" + chapNum.ToString() + "_Start"; //The format used for identifying the start of a new chapter in the Ink script.
-                BeginStory();
-            });
+            //Creates a "continue to next chapter" button.
+            Text continueToNextChapterPressableGameObject = Instantiate(selectableTextPrefab) as Text;  //Instantiates a "pressable text gameObject." (Our substitute for a button)
+            continueToNextChapterPressableGameObject.gameObject.tag = "Continue to next chapter button";
+            continueToNextChapterPressableGameObject.text = continueToNextChapterButtonText;
+            continueToNextChapterPressableGameObject.transform.SetParent(this.transform, false);    //Parents the pressable gameObject to the canvas (this gameObject).
         }
-        */
+    }
+
+    /// <summary>
+    /// Runs when the "continue to next chapter" button is pressed. Called in the DoubleTapChecker.cs script (which is also attached to the canvas).
+    /// </summary>
+    public void ContinueToNextChapterButton()
+    {
+        startKnot = "Chapter_" + chapterNumber.ToString() + "_Start"; //The format used for identifying the start of a new chapter in the Ink script.
+        BeginStory();
     }
 
     void OnApplicationFocus(bool hasFocus)
