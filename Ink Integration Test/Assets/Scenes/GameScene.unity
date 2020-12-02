@@ -389,9 +389,9 @@ MonoBehaviour:
     over? You can't undo this action.</i>
   confirmClearDataButtonText: Yes, Erase my Story Progress
   cancelClearDataButtonText: No, I Change My Mind
-  progressHasBeenClearedText: <i>Your story progress has been erased. Press "Okay"
-    to return to the Start Screen.</i>
-  returnToMenuButtonText: Okay
+  progressHasBeenClearedText: <i>Your story progress has been erased. Press "Return
+    to Menu" to return to continue.</i>
+  returnToMenuButtonText: Return to Menu
 --- !u!114 &216311364
 MonoBehaviour:
   m_ObjectHideFlags: 0

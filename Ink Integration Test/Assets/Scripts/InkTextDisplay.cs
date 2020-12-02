@@ -649,7 +649,7 @@ public class InkTextDisplay : MonoBehaviour
     void OnApplicationFocus(bool hasFocus)
     {
         //Automatically saves the game when the player doesn't focus on the app.
-        if(!hasFocus)
+        if(!hasFocus && story != null)
         {
             SaveProgress();
         }

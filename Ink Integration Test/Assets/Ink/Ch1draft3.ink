@@ -1183,7 +1183,7 @@ Anyways, we've got the information we need. Ready to go?
 === HotelVisit05 ===
 <i>You approach the concierge, in the same way Ren did. He notices you, and asks:</i>
 
-Can I. Help you?
+Can I, help you?
 ->HotelVisit06
 
 === HotelVisit06 ===

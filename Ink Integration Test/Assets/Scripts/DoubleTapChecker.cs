@@ -24,45 +24,47 @@ public class DoubleTapChecker : MonoBehaviour
     void Update()
     {
         //Detemines when a double-tap is taking place.
-        if(Input.touchCount > 0)    //Checks for any taps.
+        if(Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
 
             //Script checks to see if the current tap is the "second tap" of a double-tap. It does so by checking if the first tap has eneded, and also whether/not too much time has passed since then.
-            if(doubleTapTimer > 0 && lookForSecondTap == true) 
+            if(doubleTapTimer > 0 && lookForSecondTap == true)
             {
                 //It was the second tap!
                 Debug.Log("Double tap!");
                 lookForSecondTap = false;
                 OnDoubleTap();
             }
-            else
+            else if(touch.phase == TouchPhase.Ended) //Checks to see if the "first tap" has ended.
             {
-                if(touch.phase == TouchPhase.Ended) //Checks to see if the "first tap" has ended.
-                {
-                    firstTapEnding = true;
-                }
+                firstTapEnding = true;
 
                 //It was only the first tap.
                 doubleTapTimer = doubleTapDuration; //Sets the double-tap timer to its max value, so it can begin counting down. If another tap is made before it hits zero, it will be considered a double-tap.
             }
         }
-        else if(Input.touchCount == 0 && doubleTapTimer >= 0)   //If no taps, the timer begins counting down.
+        else if(Input.touchCount == 0)
         {
-            doubleTapTimer -= Time.deltaTime;
-        }
+            //If no taps, the timer begins counting down.
+            if(doubleTapTimer >= 0)
+            {
+                doubleTapTimer -= Time.deltaTime;
+            }
 
-        //If the timer hits zero, the script will stop checking for the "second tap" and go back to checking for the "first tap."
-        if(Input.touchCount == 0 && doubleTapTimer <= 0f)
-        {
-            lookForSecondTap = false;
-            doubleTapTimer = 0f;    //Keeps the timer at zero until the player touches the screen again.
-        }
+            //If the timer hits zero, the script will stop checking for the "second tap" and go back to checking for the "first tap."
+            if(doubleTapTimer <= 0f)
+            {
+                lookForSecondTap = false;
+                doubleTapTimer = 0f;    //Keeps the timer at zero until the player touches the screen again.
+            }
 
-        if(Input.touchCount == 0 && firstTapEnding == true)
-        {
-            firstTapEnding = false; //Now that the player's finger has left the screen, the first tap is no longer "ending." It has already ended.
-            lookForSecondTap = true;
+            //Checks to see if the game should start waiting for the second tap, or if its still waiting for the first tap.
+            if(Input.touchCount == 0 && firstTapEnding == true)
+            {
+                firstTapEnding = false; //Now that the player's finger has left the screen, the first tap is no longer "ending." It has already ended.
+                lookForSecondTap = true;
+            }
         }
     }
 
@@ -84,7 +86,7 @@ public class DoubleTapChecker : MonoBehaviour
             else if(tagOfSelectedText == "Return to menu button")
             {
                 choiceSelectedSound.Play();
-                this.GetComponent<VoiceOverNotificationTextManager>().OpenVoiceOverNotificationText();
+                this.GetComponent<MainMenuScreenManager>().OpenVoiceOverNotificationText();
 
             }
             else if(tagOfSelectedText == "Continue to next chapter button")

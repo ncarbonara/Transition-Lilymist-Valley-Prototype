@@ -6,7 +6,7 @@ using UnityEngine.UI;
 /// <summary>
 /// Prints welcome/tutorial text when the app is opened. Is attached to the Canvas gameObject in GameScene.
 /// </summary>
-public class VoiceOverNotificationTextManager : MonoBehaviour
+public class MainMenuScreenManager : MonoBehaviour
 {
     public Text textPrefab;
     public string welcomeText;

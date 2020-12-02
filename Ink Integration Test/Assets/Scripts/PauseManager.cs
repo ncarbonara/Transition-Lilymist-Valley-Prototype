@@ -129,6 +129,12 @@ public class PauseManager : MonoBehaviour
         clearProgressPressableGameObject.gameObject.tag = "Are you sure you want to clear progress button";
         clearProgressPressableGameObject.text = clearProgressButtonText;
         clearProgressPressableGameObject.transform.SetParent(this.transform, false);    //Parents the pressable gameObject to the canvas (this gameObject).
+
+        //Creates a "return to menu" button.
+        Text returnToMenuPressableGameObject = Instantiate(selectableTextPrefab) as Text;  //Instantiates a "pressable text gameObject." (Our substitute for a button)
+        returnToMenuPressableGameObject.gameObject.tag = "Return to menu button";
+        returnToMenuPressableGameObject.text = returnToMenuButtonText;
+        returnToMenuPressableGameObject.transform.SetParent(this.transform, false);    //Parents the pressable gameObject to the canvas (this gameObject).he canvas (this gameObject).
     }
 
     /// <summary>

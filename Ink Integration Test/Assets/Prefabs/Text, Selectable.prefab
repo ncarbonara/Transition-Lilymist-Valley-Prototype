@@ -46,7 +46,7 @@ MonoBehaviour:
   m_ReadType: 1
   m_WasJustAdded: 1
   m_Type: 2
-  m_CustomHint: 1
+  m_CustomHint: 0
   m_HintAsAudio: {fileID: 0}
   m_Hint: Double-tap to select.
   m_HintIsLocalizationKey: 0
