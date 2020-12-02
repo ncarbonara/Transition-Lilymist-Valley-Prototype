@@ -88,19 +88,13 @@ public class PauseManager : MonoBehaviour
             //Saves the player's progress so that they'll be back where they left of when they unpause. Uses a function in InkTextDisplay.cs (which should be attached to the same Canvas gameObject as this script).
             this.GetComponent<InkTextDisplay>().SaveProgress();
 
-            //Ends all sounds.
-            ambiance.Stop();
+            //Ends all currently playing sounds
             soundEffects.Stop();
-
-            //"Empties out" the AudioSources, to prevent issues with InkTextDisplay.cs' audio code.
-            ambiance.clip = null;
-            soundEffects.clip = null;
+            this.GetComponent<InkTextDisplay>().PlayNewAmbiance("Ambiance: None");
 
             OpenMainPauseScreen();
         }
-
-        //If game is currently paused, closes the pause screen.
-        else if(setToPause == true)
+        else if(setToPause == true)         //If game is currently paused, closes the pause screen.
         {
             setToPause = false;
 
@@ -191,6 +185,7 @@ public class PauseManager : MonoBehaviour
         returnToMenuPressableGameObject.text = returnToMenuButtonText;
         returnToMenuPressableGameObject.transform.SetParent(this.transform, false);    //Parents the pressable gameObject to the canvas (this gameObject).he canvas (this gameObject).
 
+        setToPause = false; //Resets the game's pause status.
         this.GetComponent<PauseManager>().enabled = false;  //Ensures the player can't pause/unpause before starting a new gameplay session.
     }
 }

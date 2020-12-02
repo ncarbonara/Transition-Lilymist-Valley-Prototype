@@ -7,7 +7,8 @@ using UnityEngine;
 /// </summary>
 public class DoubleTapChecker : MonoBehaviour
 {
-    bool firstTapEnded; //Makes sure the first tap in a double-tap has finished (the player has lifted their finger from the screen)
+    bool firstTapEnding; //Gets set to true when the player lifts their finger from the screen after making their "first tap" of a possible double-tap.
+    bool lookForSecondTap;  //Gets set to true when the script should start looking for a second tap.
     public float doubleTapDuration; //Determines how long the script waits for the second tap.
     float doubleTapTimer;
 
@@ -22,25 +23,26 @@ public class DoubleTapChecker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Detemines when a double-tap is taking place.
         if(Input.touchCount > 0)    //Checks for any taps.
         {
             Touch touch = Input.GetTouch(0);
 
-            if(touch.phase == TouchPhase.Ended) //Checks to see if the "first tap" has ended.
-            {
-                firstTapEnded = true;
-            }
-
             //Script checks to see if the current tap is the "second tap" of a double-tap. It does so by checking if the first tap has eneded, and also whether/not too much time has passed since then.
-            if(doubleTapTimer > 0 && firstTapEnded == true) 
+            if(doubleTapTimer > 0 && lookForSecondTap == true) 
             {
                 //It was the second tap!
                 Debug.Log("Double tap!");
-                firstTapEnded = false;
+                lookForSecondTap = false;
                 OnDoubleTap();
             }
             else
             {
+                if(touch.phase == TouchPhase.Ended) //Checks to see if the "first tap" has ended.
+                {
+                    firstTapEnding = true;
+                }
+
                 //It was only the first tap.
                 doubleTapTimer = doubleTapDuration; //Sets the double-tap timer to its max value, so it can begin counting down. If another tap is made before it hits zero, it will be considered a double-tap.
             }
@@ -48,12 +50,19 @@ public class DoubleTapChecker : MonoBehaviour
         else if(Input.touchCount == 0 && doubleTapTimer >= 0)   //If no taps, the timer begins counting down.
         {
             doubleTapTimer -= Time.deltaTime;
+        }
 
-            if(doubleTapTimer <= 0f)    //If the timer hits zero, the script will stop checking for the "second tap" and go back to checking for the "first tap."
-            {
-                firstTapEnded = false;  //Sets this to false because the "first tap" did not result in a double-tap. This variable therefore needs to be cleared to prepare for the next "first tap."
-                doubleTapTimer = 0f;    //Keeps the timer at zero until the player touches the screen again.
-            }
+        //If the timer hits zero, the script will stop checking for the "second tap" and go back to checking for the "first tap."
+        if(Input.touchCount == 0 && doubleTapTimer <= 0f)
+        {
+            lookForSecondTap = false;
+            doubleTapTimer = 0f;    //Keeps the timer at zero until the player touches the screen again.
+        }
+
+        if(Input.touchCount == 0 && firstTapEnding == true)
+        {
+            firstTapEnding = false; //Now that the player's finger has left the screen, the first tap is no longer "ending." It has already ended.
+            lookForSecondTap = true;
         }
     }
 

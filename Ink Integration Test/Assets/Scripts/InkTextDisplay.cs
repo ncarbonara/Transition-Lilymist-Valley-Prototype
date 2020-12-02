@@ -80,6 +80,9 @@ public class InkTextDisplay : MonoBehaviour
     public string returnToMenuButtonText;
     public string continueToNextChapterButtonText;
     
+    /// <summary>
+    /// Called when the player selects a dialogue choice.
+    /// </summary>
     public void SelectDialogueChoice()
     {
         int selectedChoiceIndex;
