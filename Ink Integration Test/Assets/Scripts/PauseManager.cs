@@ -177,6 +177,8 @@ public class PauseManager : MonoBehaviour
 
         this.GetComponent<InkTextDisplay>().EraseUI();  //Tells InkTextDisplay.cs to clear all the onscreen text/buttons.
 
+        this.GetComponent<InkTextDisplay>().startKnot = null;   //Clears the "start knot" field, so that the game doesn't start anywhere that isn't the very beginning.
+
         //Creates text informing the player that their saved data has been erased.
         Text progressHasBeenClearedTextGameObject = Instantiate(textPrefab) as Text;
         progressHasBeenClearedTextGameObject.text = progressHasBeenClearedText;

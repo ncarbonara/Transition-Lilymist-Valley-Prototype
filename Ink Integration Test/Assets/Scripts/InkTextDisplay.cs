@@ -107,6 +107,7 @@ public class InkTextDisplay : MonoBehaviour
         {
             story.ChoosePathString(startKnot);  //Skips directly to the specified knot, if one is chosen by the developer
             RefreshUI(false);
+            startKnot = null;   //Clears the start knot, so that it doesn't override the player's saved progress if they exit back to menu, then start playing again.
         }
         else if(PlayerPrefs.GetString("storyText") != "" && PlayerPrefs.GetString("storyState") != "")    //Checks to see if there's any saved progress data in playerprefs
         {
@@ -614,7 +615,7 @@ public class InkTextDisplay : MonoBehaviour
 
         //Informs the player that they've completed a chapter.
         Text chapterCompleteTextGameObject = Instantiate(textPrefab) as Text;
-        chapterCompleteTextGameObject.text = "Congratulations, you completed Chapter " + chapterNumber + "! " + chapterEndScreenToolTipText;
+        chapterCompleteTextGameObject.text = "<i>Congratulations, you completed Chapter " + chapterNumber + "!</i> " + chapterEndScreenToolTipText;
         AccessibleLabel label = chapterCompleteTextGameObject.gameObject.AddComponent(typeof(AccessibleLabel)) as AccessibleLabel;  //Adds an accessible label to the text.
         chapterCompleteTextGameObject.transform.SetParent(this.transform, false);
 
@@ -627,6 +628,9 @@ public class InkTextDisplay : MonoBehaviour
         returnToMenuPressableGameObject.transform.SetParent(this.transform, false);    //Parents the pressable gameObject to the canvas (this gameObject).
 
         chapterNumber++;  //This is now the number of the next chapter.
+
+        startKnot = "Chapter_" + chapterNumber.ToString() + "_Start"; //Sets the knot at the beginning of the next chapter as the start knot.
+
         if(chapterNumber <= totalChaptersImplemented)  //Checks to see if the next chapter has been implemented yet. If so, creates a button to take the player to the next chapter.
         {
             //Creates a "continue to next chapter" button.
@@ -642,7 +646,6 @@ public class InkTextDisplay : MonoBehaviour
     /// </summary>
     public void ContinueToNextChapterButton()
     {
-        startKnot = "Chapter_" + chapterNumber.ToString() + "_Start"; //The format used for identifying the start of a new chapter in the Ink script.
         BeginStory();
     }
 

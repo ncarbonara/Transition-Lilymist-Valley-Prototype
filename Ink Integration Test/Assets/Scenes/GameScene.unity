@@ -161,8 +161,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startKnot: 
-  totalChaptersImplemented: 1
-  inkJson: {fileID: 4900000, guid: 7752730c3a7ee9b4d946be1ba933a713, type: 3}
+  totalChaptersImplemented: 5
+  inkJson: {fileID: 4900000, guid: 536c868266dacdc45942e1dc3e5863a4, type: 3}
   textPrefab: {fileID: 1533027387548270544, guid: e3b8ffd5c53c3ef4a947f16b2d33b65c, type: 3}
   selectableTextPrefab: {fileID: 8104388302115117720, guid: b6c3f9e96c80a614ab1b9d993efb9ade, type: 3}
   textInputFieldPrefab: {fileID: 5046983863885402268, guid: 643a501c798012c41b4aff6183809492, type: 3}
